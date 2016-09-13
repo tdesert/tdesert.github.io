@@ -1,8 +1,7 @@
 # Key Features
 
-* Paginate as user scrolls
 * Have search params in URL
-* Sort results by...
+* Sort by
 * Facets
 	* Show number of results by category
 * Adaptive filters: Refine filters as user search
@@ -11,6 +10,7 @@
 
 * Responsive
 * Zoom-in / Zoom-out on products image and description
+* Infinite scroll
 
 
 # What should be improved from the demo project ?
