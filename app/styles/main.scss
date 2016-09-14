@@ -33,7 +33,7 @@ body {
  * off Canvas sidebar
  * --------------------------------------------------
  */
-@media screen and (max-width: 768px) {
+ @media screen and (max-width: 768px) {
   .row-offcanvas {
     position: relative;
     -webkit-transition: all 0.25s ease-out;
@@ -41,7 +41,7 @@ body {
     transition: all 0.25s ease-out;
     width:calc(100% + #{$sidebar-width});
   }
-    
+
   .row-offcanvas-left
   {
     left: -$sidebar-width;
@@ -54,5 +54,30 @@ body {
   .sidebar-offcanvas {
     position: absolute;
     top: 0;
+  }
+}
+
+
+/*
+ * Search input
+ * -------------------------------------------------
+ */
+
+ .navbar {
+  .navbar-header {
+    width: $sidebar-width;
+  }
+
+  .search-input-wrapper {
+    box-sizing: border-box;
+    margin-left: $sidebar-width;
+    padding: 0px 0px;
+    line-height: 20px;
+    input[type=text] {
+      
+      width: 100%;
+      height: 50px;
+      border: none;
+    }
   }
 }
