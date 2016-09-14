@@ -26,3 +26,8 @@
 * http://designexcellent.com/ux-search-design-organising-filtering/
 * http://baymard.com/blog/macys-filtering-experience
 * http://baymard.com/blog/how-to-design-applied-filters
+
+# Components 
+
+* https://blackrockdigital.github.io/startbootstrap-simple-sidebar/
+* http://www.codeply.com/go/SufxS3ir55
