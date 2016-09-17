@@ -12,6 +12,7 @@
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
   <link rel="stylesheet" href="/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+  <link rel="stylesheet" href="/bower_components/jquery-bar-rating/dist/themes/bootstrap-stars.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -157,6 +158,9 @@
             <img src="{{ image }}" alt="{{ name }}">
           </div>
           <h3>{{{ _highlightResult.name.value }}}</h3>
+          <div>
+            {{{ rating }}}
+          </div>
 
         </div>
           <!-- <div class="hit">
@@ -188,7 +192,7 @@
           </div>
         </script>
 
-        <!-- Slider Facet -->
+        <!-- Slider Facets -->
         <script type="text/template" id="slider-template">
           <div class="facet">
             <h3>{{ title }}</h3>
@@ -201,6 +205,19 @@
             data-slider-step="{{ step }}" 
             data-slider-value="{{ value }}"/> 
             <b>{{ max }}</b>
+          </div>
+        </script>
+
+        <!-- Rating Facets -->
+        <script type="text/template" id="rating-template">
+          <div class="facet">
+            <h3>{{ title }}</h3>
+            <select id="rating-{{ facet }}" data-facet="{{ facet }}">
+              <option value></option>
+              {{#values}}
+              <option value="{{ value }}" {{#isRefined}}selected{{/isRefined}}>{{ value }}</option>
+              {{/values}}
+            </select>
           </div>
         </script>
 
@@ -223,6 +240,7 @@
         <script src="/bower_components/algoliasearch/dist/algoliasearch.js"></script>
         <script src="/bower_components/algoliasearch-helper/dist/algoliasearch.helper.js"></script>
         <script src="/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+        <script src="/bower_components/jquery-bar-rating/jquery.barrating.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 

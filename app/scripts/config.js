@@ -8,7 +8,8 @@ var Config = {
 			{name: 'categories', displayName: 'Category', type: 'disjunctive'},
 			{name: 'brand', displayName: 'Brand', type: 'disjunctive'}, 
 			{name: 'price', displayName: 'Price', type: 'slider'},
-			{name: 'type', displayName: 'Type', type: 'conjunctive'}
+			{name: 'type', displayName: 'Type', type: 'conjunctive'},
+			{name: 'rating', displayName: 'Customer Rating', type: 'rating'}
 		],
 		HitsPerPage: 20
 	},

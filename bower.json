@@ -5,7 +5,8 @@
     "bootstrap-sass": "~3.3.5",
     "algoliasearch": "^3.18.1",
     "algoliasearch-helper": "^2.14.0",
-    "seiyria-bootstrap-slider": "^9.2.0"
+    "seiyria-bootstrap-slider": "^9.2.0",
+    "jquery-bar-rating": "^1.2.1"
   },
   "overrides": {
     "bootstrap-sass": {

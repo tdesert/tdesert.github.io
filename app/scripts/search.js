@@ -1,10 +1,19 @@
 $(document).ready(function () {
+
+	// Algolia setup
+	var conjunctiveFacets = [];
+	var disjunctiveFacets = [];
+	Config.Algolia.Facets.forEach(function(facet) { 
+		if (facet.type == 'conjunctive') conjunctiveFacets.push(facet.name);
+		if (['disjunctive', 'slider', 'rating'].includes(facet.type)) disjunctiveFacets.push(facet.name);
+	});
+
 	var algolia = algoliasearch(Config.Algolia.ApplicationId, Config.Algolia.APIKey);
 	var algoliaHelper = algoliasearchHelper(algolia, Config.Algolia.IndexName, {
 		hitsPerPage: Config.Algolia.HitsPerPage,
 		maxValuesPerFacet: 8,
-		facets: ['type'],
-		disjunctiveFacets: ['categories', 'brand', 'price'],
+		facets: conjunctiveFacets,
+		disjunctiveFacets: disjunctiveFacets,
 		index: Config.Algolia.IndexName
 	});
 
@@ -19,6 +28,7 @@ var $refinementTags = $('#refinement-tags');
 var hitsTemplate = Hogan.compile($('#hits-template').text());
 var facetTemplate = Hogan.compile($('#facet-template').text());
 var sliderTemplate = Hogan.compile($('#slider-template').text());
+var ratingTemplate = Hogan.compile($('#rating-template').text());
 var refinementTagTemplate = Hogan.compile($('#refinement-tag-template').text());
 
 
@@ -58,13 +68,11 @@ $(document).on('click', '.facet-toggle', function(e) {
 $(document).on('click', '.refinement-tag', function(e) {
 	e.preventDefault()
 	if ($(this).data('isNumeric') === true) {
-		console.log('NUMERIC !!!');
 		algoliaHelper.removeNumericRefinement($(this).data('facet')).search();
 	}
 	else {
 		algoliaHelper.toggleRefine($(this).data('facet'), $(this).data('value')).search();	
 	}
-	
 });
 
 
@@ -104,6 +112,7 @@ function renderFacets(content, state) {
 			});
 			refinementTags = refinementTags.concat(tags);
 		}
+
 		else if (facet.type == 'slider') {
 			var minValue = state.getNumericRefinement(facet.name, '>=') || result.stats.min;
 			var maxValue = state.getNumericRefinement(facet.name, '<=') || result.stats.max;
@@ -123,6 +132,30 @@ function renderFacets(content, state) {
 			if (tag !== null) {
 				refinementTags.push(tag);
 			}
+		}
+
+		else if (facet.type == 'rating') {
+			var currentRefinement = state.getNumericRefinement(facet.name, '>=') || []
+			var values = content.getFacetValues(facet.name)
+				.map(function(object) {
+					return {
+						value: object.name,
+						isRefined: currentRefinement.includes(Number(object.name))
+					}
+				})
+				.sort(function(a, b) {
+					if (a.value > b.value) return 1;
+					else if (a.value < b.value) return -1;
+					return 0;
+				});
+			var ratingData = {
+				title: facet.displayName,
+				facet: facet.name,
+				values: values
+			};
+			//console.log("rating values: ", content.getFacetValues(facet.name));
+			facetsHtml += ratingTemplate.render(ratingData);
+			console.log('rating values', values)
 		}
 	});
 
@@ -186,6 +219,22 @@ function bindFacets(state) {
 						algoliaHelper.addNumericRefinement(facet.name, '<=', userValues.max).search();
 					}
 				});
+		}
+
+		else if (facet.type == 'rating') {
+			var $rating = $facets.find('#rating-' + facet.name);
+			$rating.barrating({
+				theme: 'bootstrap-stars',
+				initialRating: null,
+				allowEmpty: null,
+				deselectable: true,
+			});
+			$rating.on('change', function() {
+				console.log($(this).val());
+				algoliaHelper.removeNumericRefinement(facet.name, '>=');
+				algoliaHelper.addNumericRefinement(facet.name, '>=', $(this).val()).search();
+			});
+			console.log('rating dom: ', $rating);
 		}
 	});
 
