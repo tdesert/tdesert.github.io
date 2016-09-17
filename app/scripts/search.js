@@ -47,9 +47,15 @@ algoliaHelper.on('error', function(error) {
 
 // Search results
 algoliaHelper.on('result', function(content, state) {
-	renderHits(content);
-	renderFacets(content, state);
-	bindFacets(state);
+	if (algoliaHelper.getPage() > 0) {
+		renderHits(content, true);
+	}
+	else {
+		renderHits(content);
+		renderFacets(content, state);
+		bindFacets(state);	
+	}
+	
 });
 
 
@@ -75,13 +81,25 @@ $(document).on('click', '.refinement-tag', function(e) {
 	}
 });
 
+$(document).on('click', '#hits-next-page', function(e) {
+	e.preventDefault();
+	$(this).remove()
+	algoliaHelper.setPage(algoliaHelper.getPage() + 1).search();
+});
+
 
 ///
 /// Rendering functions
 ///
 
-function renderHits(content) {
-	$hits.html(hitsTemplate.render(content));
+function renderHits(content, append = false) {
+	content['hasNextPage'] = content.page < content.nbPages;
+	if (append) {
+		$hits.append(hitsTemplate.render(content));	
+	}
+	else {
+		$hits.html(hitsTemplate.render(content));
+	}
 }
 
 function renderFacets(content, state) {
@@ -153,9 +171,7 @@ function renderFacets(content, state) {
 				facet: facet.name,
 				values: values
 			};
-			//console.log("rating values: ", content.getFacetValues(facet.name));
 			facetsHtml += ratingTemplate.render(ratingData);
-			console.log('rating values', values)
 		}
 	});
 
@@ -230,11 +246,9 @@ function bindFacets(state) {
 				deselectable: true,
 			});
 			$rating.on('change', function() {
-				console.log($(this).val());
 				algoliaHelper.removeNumericRefinement(facet.name, '>=');
 				algoliaHelper.addNumericRefinement(facet.name, '>=', $(this).val()).search();
 			});
-			console.log('rating dom: ', $rating);
 		}
 	});
 

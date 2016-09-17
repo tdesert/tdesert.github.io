@@ -10,9 +10,7 @@ X * Adaptive filters: Refine filters as user search
 # Nice to have
 
 X * Responsive
-// * Zoom-in / Zoom-out on products image and description
-* Infinite scroll
-// * Group search results by categories ?
+X * Infinite scroll
 ? * Add JS linter
 
 # What should be improved from the demo project ?
@@ -23,9 +21,9 @@ X * A summary of all applied filters at the top of the results page
 * Ability to clear all selected filters in the filters sections headers (x button)
 * Show more on facets ?
 * Additional filters: 
-	* rating (stars)
+	X * rating (stars)
 	* free shipping ?
-!! sort by rating
+X * sort by rating
 
 
 
