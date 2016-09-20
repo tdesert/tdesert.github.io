@@ -33,10 +33,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button> -->
+          
           <a class="navbar-brand" href="#">Instant Search</a>
         </div>
 
         <div class="search-input-wrapper">
+          <button type="button" class="visible-xs btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
           <input id="search-input" type="text" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Search by name, brand, description..."/>
         </div>
         <!-- <div class="collapse navbar-collapse">
@@ -92,10 +94,6 @@
 
         <main>
           <div class="col-md-12">
-            <p class="visible-xs">
-              <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
-            </p>
-
             <div class="row ">
               <div class="col-md-9">
                 Number of results
@@ -153,122 +151,145 @@
 
       <!-- Search results -->
       <script type="text/template" id="hits-template">
-        {{#hits}}
+
+        <!-- {{#hits}}
         <div class="hit col-lg-6 col-sm-12">
-          <div class="hit-image">
-            <img src="{{ image }}" alt="{{ name }}">
+         <div class="left" style="background-image: url({{ image }})">
+         </div>
+
+         <div class="right">
+          <h3 class="pull-right price">${{ price }}</h3>
+          <h3 class="name">{{{ _highlightResult.name.value }}}</h3>            
+          <p class="description">{{{ _highlightResult.description.value }}}</p>
+          <div class="rating">
+            {{#ratingStars}}
+            <span class="glyphicon glyphicon-star"></span>
+            {{/ratingStars}}
           </div>
-          <h3>{{{ _highlightResult.name.value }}}</h3>
-          <div>
-            {{{ rating }}}
+        </div>
+      </div>
+      {{/hits}} -->
+
+      {{#hits}}
+      <div class="tile col-lg-4 col-sm-12">
+
+        <div class="hit">
+         <div class="image" style="background-image: url({{ image }})"></div>
+         
+         <div class="description">
+          <h3>{{{ _highlightResult.name.value  }}}</h3>
+          {{{ _highlightResult.description.value }}}
+         </div>
+
+         <div class="footer">
+          <div class="price">${{ price }}</div>
+          <div class="rating">
+            {{#ratingStars}}
+            <span class="glyphicon glyphicon-star"></span>
+            {{/ratingStars}}
           </div>
+         </div>
 
         </div>
-          <!-- <div class="hit">
-            <div class="hit-image">
-              <img src="{{ image }}" alt="{{ name }}">
-            </div>
-            <div class="hit-content">
-              <h3 class="hit-price">${{ price }}</h3>
-              <h2 class="hit-name">{{{ _highlightResult.name.value }}}</h2>
-              <p class="hit-description">{{{ _highlightResult.description.value }}}</p>
-            </div>
-          </div> -->
-          {{/hits}}
-          {{#hasNextPage}}
-          <a href="" id="hits-next-page">More products</a>
-          {{/hasNextPage}}
-        </script>
+      </div>
+      {{/hits}}
 
-        <!-- Facets -->
-        <script type="text/template" id="facet-template">
-          <div class="facet">
-            <h3>{{ title }}</h3>
-            <ul>
-            {{#values}}
-            <li>
+      {{#hasNextPage}}
+      <a href="" id="hits-next-page">More products</a>
+      {{/hasNextPage}}
+   
+
+    </script>
+
+    <!-- Facets -->
+    <script type="text/template" id="facet-template">
+      <div class="facet">
+        <h3>{{ title }}</h3>
+        <ul>
+          {{#values}}
+          <li>
             <a href="" class="facet-toggle {{#isDisjunctive}}disjunctive{{/isDisjunctive}} {{#isRefined}}selected{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}">
-                {{ name }} <span class="count">{{ count }}</span>
-              </a>
-            </li>
-            {{/values}}
-            </ul>
-          </div>
-        </script>
+              {{ name }} <span class="count">{{ count }}</span>
+            </a>
+          </li>
+          {{/values}}
+        </ul>
+      </div>
+    </script>
 
-        <!-- Slider Facets -->
-        <script type="text/template" id="slider-template">
-          <div class="facet">
-            <h3>{{ title }}</h3>
-            <b> {{ min }} </b> 
-            <input 
-            id="slider-{{ facet }}" 
-            type="text" 
-            data-slider-min="{{ min }}" 
-            data-slider-max="{{ max }}" 
-            data-slider-step="{{ step }}" 
-            data-slider-value="{{ value }}"/> 
-            <b>{{ max }}</b>
-          </div>
-        </script>
+    <!-- Slider Facets -->
+    <script type="text/template" id="slider-template">
+      <div class="facet">
+        <h3>{{ title }}</h3>
+        <b> {{ min }} </b> 
+        <input 
+        id="slider-{{ facet }}" 
+        type="text" 
+        data-slider-min="{{ min }}" 
+        data-slider-max="{{ max }}" 
+        data-slider-step="{{ step }}" 
+        data-slider-value="{{ value }}"/> 
+        <b>{{ max }}</b>
+      </div>
+    </script>
 
-        <!-- Rating Facets -->
-        <script type="text/template" id="rating-template">
-          <div class="facet">
-            <h3>{{ title }}</h3>
-            <select id="rating-{{ facet }}" data-facet="{{ facet }}">
-              <option value></option>
-              {{#values}}
-              <option value="{{ value }}" {{#isRefined}}selected{{/isRefined}}>{{ value }}</option>
-              {{/values}}
-            </select>
-          </div>
-        </script>
+    <!-- Rating Facets -->
+    <script type="text/template" id="rating-template">
+      <div class="facet">
+        <h3>{{ title }}</h3>
+        <select id="rating-{{ facet }}" data-facet="{{ facet }}">
+          <option value></option>
+          {{#values}}
+          <option value="{{ value }}" {{#isRefined}}selected{{/isRefined}}>{{ value }}</option>
+          {{/values}}
+        </select>
+      </div>
+    </script>
 
-        <!-- Refinement tag template -->
-        <script type="text/template" id="refinement-tag-template">
-          <span 
-            class="refinement-tag" 
-            data-facet="{{ facet }}" 
-            data-value="{{ value }}"
-            data-is-numeric="{{ isNumeric }}">
-              {{ title }}
-          </span>
-        </script>
+    <!-- Refinement tag template -->
+    <script type="text/template" id="refinement-tag-template">
+      <span 
+      class="refinement-tag" 
+      data-facet="{{ facet }}" 
+      data-value="{{ value }}"
+      data-is-numeric="{{ isNumeric }}">
+      {{ title }}
+    </span>
+  </script>
 
 
 
-        <!-- build:js scripts/vendor.js -->
-        <!-- bower:js -->
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script src="/bower_components/algoliasearch/dist/algoliasearch.js"></script>
-        <script src="/bower_components/algoliasearch-helper/dist/algoliasearch.helper.js"></script>
-        <script src="/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
-        <script src="/bower_components/jquery-bar-rating/jquery.barrating.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="/bower_components/jquery/dist/jquery.js"></script>
+  <script src="/bower_components/algoliasearch/dist/algoliasearch.js"></script>
+  <script src="/bower_components/algoliasearch-helper/dist/algoliasearch.helper.js"></script>
+  <script src="/bower_components/seiyria-bootstrap-slider/dist/bootstrap-slider.js"></script>
+  <script src="/bower_components/jquery-bar-rating/jquery.barrating.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
 
-        <!-- build:js scripts/plugins.js -->
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
-        <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
-        <!-- endbuild -->
+  <!-- build:js scripts/plugins.js -->
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+  <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+  <!-- endbuild -->
 
-        <!-- build:js scripts/main.js -->
-        <script src="scripts/config.js"></script>
-        <script src="scripts/main.js"></script>
-        <script src="scripts/search.js"></script>
-        <!-- endbuild -->
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/config.js"></script>
+  <script src="scripts/main.js"></script>
+  <script src="scripts/search.js"></script>
+  <!-- endbuild -->
 
-        <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
-      </body>
-      </html>
+  <script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script>
+</body>
+</html>

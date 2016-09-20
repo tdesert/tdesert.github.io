@@ -92,9 +92,19 @@ $(document).on('click', '#hits-next-page', function(e) {
 /// Rendering functions
 ///
 
-function renderHits(content, append = false) {
+function renderHits(content, append) {
 	content['hasNextPage'] = content.page < content.nbPages;
-	if (append) {
+
+	content.hits.forEach(function(hit) {
+		ratingStars = [];
+		for (var i = 0; i < hit.rating; i++) {
+			ratingStars.push({value: i});
+		}
+		hit['ratingStars'] = ratingStars;
+	})
+		
+	
+	if (typeof(append) != 'undefined') {
 		$hits.append(hitsTemplate.render(content));	
 	}
 	else {
