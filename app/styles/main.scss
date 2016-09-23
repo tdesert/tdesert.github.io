@@ -1,6 +1,10 @@
 $icon-font-path: '../fonts/';
 $sidebar-width: 300px;
 
+$light-gray: #D5D5D5;
+//$gray: #E5E5E5;
+$dark-gray: #898989;
+
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
@@ -69,46 +73,162 @@ main {
  * Header (with search input)
  * -------------------------------------------------
  */
- .navbar {
-  .navbar-header {
-    width: $sidebar-width;
-    float: left;
-  }
 
-  .search-input-wrapper {
-    box-sizing: border-box;
-    margin-left: $sidebar-width;
-    padding: 0px 0px;
-    line-height: 20px;
-    input[type=text] {
+ @mixin placeholder-color($color) {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $color;
+    text-align: center;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    $color;
+   opacity:  1;
+   text-align: center;
+ }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    $color;
+   opacity:  1;
+   text-align: center;
+ }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    $color;
+   text-align: center;
+ }
+}
+
+$navbar-height: 90px;
+$search-icon-size: 24px;
+
+.navbar {
+
+  height: $navbar-height;
+  background-color: white;
+  border: none;
+  border-bottom: 1px solid $light-gray;
+  padding: 0 0;
+  text-align: center;
+
+  @include placeholder-color($light-gray);
+
+  .header {
+
+    height: 100%;
+    padding: 25px 10px;
+
+    .search-input-wrapper {
+      position: relative;
+      max-width: 430px;
       width: 100%;
-      height: 50px;
-      border: none;
+      height: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    //display: inline-block;
+    //line
+    //border: 1px solid red;
+
+    input[type=text]#search-input {
+      display: inline-block;
+      border: 1px solid $light-gray;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      padding-left: $search-icon-size + 20px;
+      outline: none;
+      //width: 300px;
+
+      &:focus {
+        border-color: $dark-gray;
+      }
+    }
+
+    .search-icon {
+      font-size: $search-icon-size;
+      width: $search-icon-size;
+      height: $search-icon-size;
+      line-height: 100%;
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      margin-top: -$search-icon-size / 2;
+      vertical-align: middle;
+      color: $light-gray;
     }
   }
 }
 
+
+.brand {
+  float: left;
+  height: 100%;
+  border: 1px solid green;
+    //line-height: $navbar-height;
+  }
+
+  // .navbar-header {
+  //   width: $sidebar-width;
+  //   float: left;
+  // }
+
+  // .search-input-wrapper {
+  //   box-sizing: border-box;
+  //   margin-left: $sidebar-width;
+  //   padding: 0px 0px;
+  //   line-height: 20px;
+  //   input[type=text] {
+  //     width: 100%;
+  //     height: 50px;
+  //     border: none;
+  //   }
+  // }
+}
+
 @media screen and (max-width: 768px) {
   .navbar {
-    .navbar-header {
+
+    .brand {
       display: none;
     }
 
-    .search-input-wrapper {
-      position: relative;
-      margin: 0;
+    #menu-button {
+      width: $navbar-height;
+      height: $navbar-height;
+      float: left;
+      background-color: white;
+      color: $light-gray;
+      border: none;
+      border-radius: none;
+      border-color: $light-gray;
+      border-right: 1px solid $light-gray;
+      border-bottom: 1px solid $light-gray;
+      font-size: 24px;
 
-      .btn-xs {
-        position: absolute;
-        left: 0;
-        height: 50px;
-        width: 50px;
+      &:focus {
+        outline: none;
       }
 
-      input[type=text] {
-        margin-left: 50px;
+      &:hover {
+        background-color: #F6F6F6;
       }
     }
+
+    .header {
+      margin-left: $navbar-height;
+    }
+
+    // .search-input-wrapper {
+    //   position: relative;
+    //   margin: 0;
+
+    //   .btn-xs {
+    //     position: absolute;
+    //     left: 0;
+    //     height: 50px;
+    //     width: 50px;
+    //   }
+
+    //   input[type=text] {
+    //     margin-left: 50px;
+    //   }
+    // }
   }
 }
 

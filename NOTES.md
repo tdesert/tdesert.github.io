@@ -17,8 +17,11 @@ X * Infinite scroll
 
 X * Filters should always stay at the same place even when selected
 X * A summary of all applied filters at the top of the results page
+
 * Sticky header (containing combination of applied filters)
 * Ability to clear all selected filters in the filters sections headers (x button)
+* Toggle facets sections
+
 * Show more on facets ?
 * Additional filters: 
 	X * rating (stars)
