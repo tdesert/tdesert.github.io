@@ -90,6 +90,10 @@ $(document).on('click', '#hits-next-page', function(e) {
 	algoliaHelper.setPage(algoliaHelper.getPage() + 1).search();
 });
 
+$('.brand').on('click', function(e) {
+	algoliaHelper.clearRefinements().search();
+});
+
 
 ///
 /// Rendering functions
@@ -135,15 +139,18 @@ function renderFacets(content, state) {
 		if (!result) return;
 
 		if (facet.type == 'conjunctive' || facet.type == 'disjunctive') {
+			var refinedValues = (facet.type == 'conjunctive') ? state.getConjunctiveRefinements(facet.name) : state.getDisjunctiveRefinements(facet.name)
+
+			// Render facet template
 			var facetData = {
 				facet: facet.name,
 				title: facet.displayName,
 				values: content.getFacetValues(facet.name, {sortBy: ['count:desc']}),
-				isDisjunctive: facet.type == 'disjunctive'
+				isDisjunctive: facet.type == 'disjunctive',
+				hasRefinements: refinedValues.count > 0
 			};
 			facetsHtml += facetTemplate.render(facetData);
 
-			var refinedValues = (facet.type == 'conjunctive') ? state.getConjunctiveRefinements(facet.name) : state.getDisjunctiveRefinements(facet.name)
 			var tags = refinedValues.map(function(value) {
 				return {
 					value: value,

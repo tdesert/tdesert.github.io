@@ -1,5 +1,5 @@
 $icon-font-path: '../fonts/';
-$sidebar-width: 250px;
+$sidebar-width: 270px;
 $navbar-height: 90px;
 $refinement-tags-height: 45px;
 $hits-header-height: 100px;
@@ -136,15 +136,19 @@ main {
   .header {
 
     height: 100%;
-    padding: 25px 10px;
+    //padding: 25px 10px;
 
     .search-input-wrapper {
       position: relative;
-      max-width: 430px;
+      //max-width: 430px;
+      //padding-left: 200px;
+      //border: 1px solid red;
       width: 100%;
       height: 100%;
-      margin-left: auto;
-      margin-right: auto;
+      //margin-left: auto;
+      //margin-right: auto;
+      padding: 25px 10px;
+      padding-left: 200px;
 
       input[type=text]#search-input {
         display: inline-block;
@@ -170,7 +174,7 @@ main {
         height: $search-icon-size;
         line-height: 100%;
         position: absolute;
-        left: 10px;
+        left: 210px;
         top: 50%;
         margin-top: -$search-icon-size / 2;
         vertical-align: middle;
@@ -180,16 +184,31 @@ main {
   }
 
 
-  .brand {
-    float: left;
+  .brand-wrapper {
     height: 100%;
+    width: 180px;
+    float: left;
+    padding: 10px 0;
+    //border: 1px solid red;
+    .brand {
+      cursor: pointer;
+      height: 100%;
+      width: 100%;
+      background-image: url(../images/instant-search-logo.png);
+      background-size: contain;
+      background-position: 15px center;
+      background-repeat: no-repeat;
+      //border: 1px solid blue;
+      //background-color: $gray;
+    }  
   }
+  
 }
 
 @media screen and (max-width: 768px) {
   .navbar {
 
-    .brand {
+    .brand-wrapper {
       display: none;
     }
 
@@ -217,6 +236,13 @@ main {
 
     .header {
       margin-left: $navbar-height;
+
+      .search-input-wrapper {
+        padding-left: 10px;
+        .search-icon {
+          left: 20px;
+        }
+      }
     }
   }
 }
@@ -322,7 +348,7 @@ main {
       height: 400px;
       width: 100%;
       background-color: white;
-
+      color: $dark-gray;
       border-radius: 3px;
 
       em {
@@ -404,10 +430,12 @@ main {
 
  .facet {
 
+  letter-spacing: 1px;
   color: $light-gray;
-  font-weight: normal;
+  font-weight: lighter;
+  line-height: 24px;
   h3 {
-    font-weight: normal;
+    font-weight: lighter;
     font-size: 20px;
     border-bottom: 1px solid $light-gray;
     padding-bottom: 5px;
@@ -418,12 +446,15 @@ main {
     margin: 0;
     padding: 0;
 
-    a {
-      color: $light-gray;
-      //font-weight: lighter;
+    li {
+      
+      a {
+        color: $light-gray;
+
 
       &.selected {
         color: $blue; 
+        font-weight: normal;
 
         &:hover {
           text-decoration: line-through;
@@ -440,7 +471,9 @@ main {
           content: '\2610';
           color: $light-gray;
           font-size: 20px;
-          line-height: 18px;
+          line-height: 20px;
+          height: 20px;
+          // font-weight: lighter;
           //font-size: 20px;
           //text-align: center;
           //line-height: $facet-disjunctive-checkbox-height;
@@ -456,6 +489,12 @@ main {
       }
 
     } // a
+
+    .count {
+      color: $gray;
+    }
+
+  } // li
 
   } // ul
 
