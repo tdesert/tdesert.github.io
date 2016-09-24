@@ -1,13 +1,48 @@
 $icon-font-path: '../fonts/';
-$sidebar-width: 300px;
+$sidebar-width: 250px;
+$navbar-height: 90px;
+$refinement-tags-height: 45px;
 
-$light-gray: #D5D5D5;
-//$gray: #E5E5E5;
+$light-gray: #F3F3F3;
+$gray: #D5D5D5;
 $dark-gray: #898989;
+$blue: #51B6D2;
 
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
+
+// Mixins
+
+@mixin box-shadow($dx, $dy, $blur, $color) {
+  -moz-box-shadow: $dx $dy $blur $color;
+  -webkit-box-shadow: $dx $dy $blur $color;
+  -o-box-shadow: $dx $dy $blur $color;
+  box-shadow: $dx $dy $blur $color;
+}
+
+@mixin placeholder-color($color) {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $color;
+    text-align: center;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    $color;
+   opacity:  1;
+   text-align: center;
+ }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    $color;
+   opacity:  1;
+   text-align: center;
+ }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    $color;
+   text-align: center;
+ }
+}
+
+//
 
 /*
  * Global 
@@ -18,7 +53,7 @@ $dark-gray: #898989;
 }
 
 body {
-  padding-top: 50px;
+  padding-top: $navbar-height + $refinement-tags-height;
 }
 
 main {
@@ -74,28 +109,6 @@ main {
  * -------------------------------------------------
  */
 
- @mixin placeholder-color($color) {
-  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    $color;
-    text-align: center;
-  }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    $color;
-   opacity:  1;
-   text-align: center;
- }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    $color;
-   opacity:  1;
-   text-align: center;
- }
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    $color;
-   text-align: center;
- }
-}
-
-$navbar-height: 90px;
 $search-icon-size: 24px;
 
 .navbar {
@@ -107,7 +120,7 @@ $search-icon-size: 24px;
   padding: 0 0;
   text-align: center;
 
-  @include placeholder-color($light-gray);
+  @include placeholder-color($gray);
 
   .header {
 
@@ -121,19 +134,15 @@ $search-icon-size: 24px;
       height: 100%;
       margin-left: auto;
       margin-right: auto;
-    //display: inline-block;
-    //line
-    //border: 1px solid red;
 
     input[type=text]#search-input {
       display: inline-block;
-      border: 1px solid $light-gray;
+      border: 1px solid $gray;
       width: 100%;
       height: 100%;
       border-radius: 12px;
       padding-left: $search-icon-size + 20px;
       outline: none;
-      //width: 300px;
 
       &:focus {
         border-color: $dark-gray;
@@ -150,7 +159,7 @@ $search-icon-size: 24px;
       top: 50%;
       margin-top: -$search-icon-size / 2;
       vertical-align: middle;
-      color: $light-gray;
+      color: $gray;
     }
   }
 }
@@ -159,26 +168,7 @@ $search-icon-size: 24px;
 .brand {
   float: left;
   height: 100%;
-  border: 1px solid green;
-    //line-height: $navbar-height;
   }
-
-  // .navbar-header {
-  //   width: $sidebar-width;
-  //   float: left;
-  // }
-
-  // .search-input-wrapper {
-  //   box-sizing: border-box;
-  //   margin-left: $sidebar-width;
-  //   padding: 0px 0px;
-  //   line-height: 20px;
-  //   input[type=text] {
-  //     width: 100%;
-  //     height: 50px;
-  //     border: none;
-  //   }
-  // }
 }
 
 @media screen and (max-width: 768px) {
@@ -213,22 +203,51 @@ $search-icon-size: 24px;
     .header {
       margin-left: $navbar-height;
     }
+  }
+}
 
-    // .search-input-wrapper {
-    //   position: relative;
-    //   margin: 0;
+/*
+ * Refinement tags
+ * --------------------------------------------------
+ */
 
-    //   .btn-xs {
-    //     position: absolute;
-    //     left: 0;
-    //     height: 50px;
-    //     width: 50px;
-    //   }
+ #refinement-tags-wrapper {
 
-    //   input[type=text] {
-    //     margin-left: 50px;
-    //   }
-    // }
+    position: fixed;
+    top: $navbar-height;
+    width: 100%;
+    height: $refinement-tags-height;
+    overflow-x: scroll;
+    background-color: $light-gray;
+
+   #refinement-tags {
+    
+    position: absolute;
+    padding: 5px 10px;
+    height: 100%;
+    white-space: nowrap;
+    
+    .refinement-tag {
+      vertical-align: middle;
+      display: inline-block;
+      height: 100%;
+      color: $blue;
+      border: none;
+
+      @include box-shadow(0.5px, 0.5px, 1px, $gray);
+
+      .glyphicon {
+        color: $gray;
+        margin-right: 3px;
+      }
+
+      &:hover {
+        background-color: #FAFAFA;
+        .glyphicon {
+          color: $dark-gray;
+        }
+      }
+    }
   }
 }
 
@@ -419,19 +438,5 @@ $search-icon-size: 24px;
         content: '';
       }
     }
-  }
-}
-
-/*
- * Tags
- * --------------------------------------------------
- */
-
- #refinement-tags {
-  .refinement-tag {
-    border: 1px solid red;
-    padding-left: 14px;
-    margin-right: 8px;
-    cursor: pointer;
   }
 }

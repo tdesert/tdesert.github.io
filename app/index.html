@@ -49,44 +49,14 @@
         <!--/.nav-collapse -->
       </header><!--/.navbar -->
 
+      <div id="refinement-tags-wrapper">
+        <div id="refinement-tags">
+        </div>
+      </div>
+
       <div class="row-offcanvas row-offcanvas-left">
         <div id="sidebar" class="sidebar-offcanvas">
           <div class="col-md-12" id="facets">
-
-            <!-- <div class="facet">
-              <h3>Category</h3>
-              <ul>
-                <li><a href="" class="disjunctive selected">This is a facet</a></li>
-                <li><a href="" class="disjunctive selected">This is a facet</a></li>
-                <li><a href="" class="disjunctive selected">This is a facet</a></li>
-                <li><a href="" class="disjunctive">This is a facet</a></li>
-                <li><a href="" class="disjunctive">This is a facet</a></li>
-              </ul>
-            </div>
-
-            <div class="facet">
-              <h3>Brand</h3>
-              <ul>
-                <li>This is a facet</li>
-                <li>This is a facet</li>
-                <li>This is a facet</li>
-                <li>This is a facet</li>
-                <li>This is a facet</li>
-              </ul>
-            </div> -->
-            <!-- <h3>Sidebar (fixed)</h3>
-            <ul class="nav nav-pills nav-stacked">
-              <li class="active"><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-              <li><a href="#">Section</a></li>
-            </ul> -->
           </div>
         </div>
 
@@ -105,15 +75,6 @@
                   <option value="_rating_desc">Customer Rating</option>
                 </select>
                 <span class="caret"></span>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-md-12" id="refinement-tags">
-                <span class="tag">Default</span>
-                <span class="tag">Default</span>
-                <span class="tag">Default</span>
-                <span class="tag">Default</span>
               </div>
             </div>
 
@@ -246,13 +207,13 @@
 
     <!-- Refinement tag template -->
     <script type="text/template" id="refinement-tag-template">
-      <span 
-      class="refinement-tag" 
+      <button type="button"
+      class="btn btn-default refinement-tag"
       data-facet="{{ facet }}" 
       data-value="{{ value }}"
       data-is-numeric="{{ isNumeric }}">
-      {{ title }}
-    </span>
+      <span class="glyphicon glyphicon-remove"></span> {{ title }}
+    </button>
   </script>
 
 
