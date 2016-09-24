@@ -2,13 +2,15 @@ $icon-font-path: '../fonts/';
 $sidebar-width: 250px;
 $navbar-height: 90px;
 $refinement-tags-height: 45px;
+$hits-header-height: 100px;
 
 $light-gray: #F3F3F3;
 $gray: #D5D5D5;
 //$dark-gray: #898989;
-$dark-gray: #566062;
+$dark-gray: #6A6A6A;
 $darker-gray: #4D5557;
 $blue: #51B6D2;
+$sidebar-background-color: #566062;
 
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
@@ -27,20 +29,24 @@ $blue: #51B6D2;
   ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color:    $color;
     text-align: center;
+    font-weight: lighter;
   }
   :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
    color:    $color;
    opacity:  1;
    text-align: center;
+   font-weight: lighter;
  }
   ::-moz-placeholder { /* Mozilla Firefox 19+ */
    color:    $color;
    opacity:  1;
    text-align: center;
+   font-weight: lighter;
  }
   :-ms-input-placeholder { /* Internet Explorer 10-11 */
    color:    $color;
    text-align: center;
+   font-weight: lighter;
  }
 }
 
@@ -61,13 +67,15 @@ body {
 main {
   height:100%;
   overflow:auto;
+  padding: 0 50px 0 50px;
+  background-color: $light-gray;
 }
 
 #sidebar {
   width: inherit;
   min-width: $sidebar-width;
   max-width: $sidebar-width;
-  background-color: $dark-gray;
+  background-color: $sidebar-background-color;
   float: left;
   height:100%;
   position:relative;
@@ -119,7 +127,7 @@ main {
   height: $navbar-height;
   background-color: white;
   border: none;
-  border-bottom: 1px solid $light-gray;
+  border-bottom: 1px solid $gray;
   padding: 0 0;
   text-align: center;
 
@@ -146,9 +154,13 @@ main {
         border-radius: 12px;
         padding-left: $search-icon-size + 20px;
         outline: none;
+        color: $gray;
+        font-weight: bold;
+        font-size: 18px;
 
         &:focus {
-          border-color: $dark-gray;
+          border-color: $blue;
+          color: $blue;
         }
       }
 
@@ -186,12 +198,12 @@ main {
       height: $navbar-height;
       float: left;
       background-color: white;
-      color: $light-gray;
+      color: $gray;
       border: none;
       border-radius: none;
-      border-color: $light-gray;
-      border-right: 1px solid $light-gray;
-      border-bottom: 1px solid $light-gray;
+      //border-color: $light-gray;
+      border-right: 1px solid $gray;
+      border-bottom: 1px solid $gray;
       font-size: 24px;
 
       &:focus {
@@ -222,6 +234,7 @@ main {
   height: $refinement-tags-height;
   overflow-x: scroll;
   background-color: $light-gray;
+  border-bottom: 1px solid $gray;
 
   #refinement-tags {
 
@@ -261,9 +274,36 @@ main {
 
  $image-width: 100px;
 
- #hits {
+ #hits-header {
+  //height: $hits-header-height;
+  //line-height: $hits-header-height;
+  padding-top: 30px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid $gray;
+  color: $dark-gray;
+  overflow: hidden;
+  font-weight: lighter;
+  font-size: 18px;
+
+  .sort {
+    select {
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      //text-transform: uppercase;
+    }
+  }
+}
+
+
+#hits {
 
   padding-bottom: 50px;
+  padding-top: 30px;
+  //margin: -5px;
 
   // .tile:not(:first-child),.col:not(:last-child) {
   //   padding-right:7px;
@@ -275,25 +315,27 @@ main {
     padding: 10px;
 
     .hit {
-      padding: 10px 0 0 0;
-      border: 1px solid red;
+      padding: 20px 0 0 0;
+      //border: 1px solid red;
+      @include box-shadow(0px, 0px, 3px, $gray)
       position: relative;
       height: 400px;
       width: 100%;
+      background-color: white;
 
       border-radius: 3px;
 
       em {
         font-style: normal;
-        font-weight: bold;
-        background-color: #EEE;
-        color: gray;
+        font-weight: normal;
+        //background-color: $light-gray;
+        color: $blue;
       }
 
       .image {
         height: 100px;
         position: absolute;
-        top: 10px;
+        top: 20px;
         left: 0;
         width: 100%;
         background-repeat: no-repeat;
@@ -307,33 +349,38 @@ main {
           font-size: 18px;
           padding: 0;
           line-height: 24px;
+          font-weight: normal;
         }
 
         line-height: 24px;
         position: absolute;
 
         padding: 10px;
-        //height: 100%;
-        top: 100px;
+        top: 110px;
         bottom: 20px;
-        //padding-top: 100px;
         margin-bottom: 20px;
+        font-weight: lighter;
 
         overflow: hidden;
       }
 
       .footer {
         position: absolute;
-        bottom: 0;
+        bottom: 5px;
         left: 0;
         width: 100%;
         padding: 0px 10px;
 
         .price {
-          float: left;
+          //float: left;
+          //color: bl;
         }
         .rating {
-          float: right;
+          color: $gray;
+          .enabled {
+            color: $blue;
+          }
+          //float: right;
         }
       }
     }

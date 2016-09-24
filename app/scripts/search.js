@@ -19,12 +19,14 @@ $(document).ready(function () {
 
 // DOM Elements
 var $searchInput = $('#search-input');
+var $stats = $('#stats');
 var $hits = $('#hits');
 var $facets = $('#facets');
 var $sortBySelect = $('#sort-by-select');
 var $refinementTags = $('#refinement-tags');
 
 // Templates
+var statsTemplate = Hogan.compile($('#stats-template').text());
 var hitsTemplate = Hogan.compile($('#hits-template').text());
 var facetTemplate = Hogan.compile($('#facet-template').text());
 var sliderTemplate = Hogan.compile($('#slider-template').text());
@@ -51,6 +53,7 @@ algoliaHelper.on('result', function(content, state) {
 		renderHits(content, true);
 	}
 	else {
+		renderStats(content);
 		renderHits(content);
 		renderFacets(content, state);
 		bindFacets(state);	
@@ -92,13 +95,24 @@ $(document).on('click', '#hits-next-page', function(e) {
 /// Rendering functions
 ///
 
+function renderStats(content) {
+	$stats.html(statsTemplate.render({
+		nbHits: content.nbHits,
+		nbHits_plural: content.nbHits !== 1
+	}));
+}
+
 function renderHits(content, append) {
 	content['hasNextPage'] = content.page < content.nbPages;
 
+	var maxRatingValue = content.getFacetByName("rating").stats.max || 0
 	content.hits.forEach(function(hit) {
 		ratingStars = [];
-		for (var i = 0; i < hit.rating; i++) {
-			ratingStars.push({value: i});
+		//var activeStars
+
+		for (var i = 0; i < maxRatingValue; i++) {
+			//hit.rating
+			ratingStars.push({enabled: i < hit.rating});
 		}
 		hit['ratingStars'] = ratingStars;
 	})
