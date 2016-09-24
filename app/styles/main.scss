@@ -252,14 +252,14 @@ main {
 
       @include box-shadow(0.5px, 0.5px, 1px, $gray);
 
-      .glyphicon {
+      .glyphicon-remove {
         color: $gray;
         margin-right: 3px;
       }
 
       &:hover {
         background-color: #FAFAFA;
-        .glyphicon {
+        .glyphicon-remove {
           color: $dark-gray;
         }
       }
@@ -372,15 +372,13 @@ main {
         padding: 0px 10px;
 
         .price {
-          //float: left;
-          //color: bl;
         }
+
         .rating {
           color: $gray;
           .enabled {
             color: $blue;
           }
-          //float: right;
         }
       }
     }
@@ -393,63 +391,7 @@ main {
     clear: both;
     text-align: center;
   }
-  // .hit {
 
-  //   padding: 20px;
-  //   border: 1px solid black;
-  //   //margin: 20px;
-  //   height: 200px;
-  //   position: relative;   
-  //   overflow: hidden;
-  //   text-overflow: ellipsis;
-
-  //   em {
-  //     font-weight: bold;
-  //     font-style: normal;
-  //   }
-
-  //   .left {
-  //     float: left;
-  //     width: $image-width;
-  //     height: 100%;
-
-  //     background-repeat: no-repeat;
-  //     background-position: center center;
-  //     background-size: contain;
-  //   }
-
-  //   .right {
-  //     padding-left: $image-width + 10px;
-
-  //     h3 {
-  //       font-size: 14px;
-
-  //       &.name {
-  //         max-height: 32px;
-  //         overflow: hidden;
-  //         text-overflow: ellipsis;
-  //       }
-  //     }
-
-  //     .price {
-  //       margin-left: 20px;
-  //       margin: 0;
-  //       color: green;
-  //     }
-
-  //     .description {
-  //       overflow: hidden;
-  //       text-overflow: ellipsis;
-  //       max-height: 100px;
-  //     }
-
-  //     .rating {
-  //       position: absolute;
-  //       right: 10px;
-  //       bottom: 10px;
-  //     }
-  //   }
-  // }
 }
 
 /*
@@ -463,10 +405,11 @@ main {
  .facet {
 
   color: $light-gray;
+  font-weight: normal;
   h3 {
-    //font-weight: lighter;
+    font-weight: normal;
     font-size: 20px;
-    border-bottom: 1px solid $darker-gray;
+    border-bottom: 1px solid $light-gray;
     padding-bottom: 5px;
   }
 

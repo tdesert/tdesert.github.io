@@ -161,7 +161,6 @@ function renderFacets(content, state) {
 			var minValue = state.getNumericRefinement(facet.name, '>=') || min;
 			var maxValue = state.getNumericRefinement(facet.name, '<=') || max;
 
-			//console.log(">>>>>", Math.floor(minValue), Math.floor(maxValue));
 			var sliderData = {
 				facet: facet.name,
 				title: facet.displayName,
@@ -200,6 +199,23 @@ function renderFacets(content, state) {
 				values: values
 			};
 			facetsHtml += ratingTemplate.render(ratingData);
+
+			// Tag value
+			var facetValue = state.getNumericRefinement(facet.name, '>=') || null
+			console.log("FACET VALUE", facetValue)
+			if (facetValue !== null) {
+				var stars = ''
+				for (var i = 0; i < facetValue; i++) {
+					stars += '<span class="glyphicon glyphicon-star"></span>';
+				}
+				console.log(stars)
+				refinementTags.push({
+					value: facetValue,
+					title: 'Min rating: ' + stars,
+					facet: facet.name,
+					isNumeric: true
+				});
+			}
 		}
 	});
 
@@ -284,8 +300,12 @@ function bindFacets(state) {
 				deselectable: true,
 			});
 			$rating.on('change', function() {
+				var newValue = $(this).val()
 				algoliaHelper.removeNumericRefinement(facet.name, '>=');
-				algoliaHelper.addNumericRefinement(facet.name, '>=', $(this).val()).search();
+				if (newValue.length > 0) {
+					algoliaHelper.addNumericRefinement(facet.name, '>=', newValue);
+				}
+				algoliaHelper.search();
 			});
 		}
 	});
