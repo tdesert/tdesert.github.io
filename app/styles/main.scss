@@ -73,6 +73,7 @@ main {
   position:relative;
   overflow-y:auto;
   overflow-x:hidden;
+  padding-bottom: 50px;
 }
 
 
@@ -111,9 +112,9 @@ main {
  * -------------------------------------------------
  */
 
-$search-icon-size: 24px;
+ $search-icon-size: 24px;
 
-.navbar {
+ .navbar {
 
   height: $navbar-height;
   background-color: white;
@@ -137,39 +138,39 @@ $search-icon-size: 24px;
       margin-left: auto;
       margin-right: auto;
 
-    input[type=text]#search-input {
-      display: inline-block;
-      border: 1px solid $gray;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      padding-left: $search-icon-size + 20px;
-      outline: none;
+      input[type=text]#search-input {
+        display: inline-block;
+        border: 1px solid $gray;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        padding-left: $search-icon-size + 20px;
+        outline: none;
 
-      &:focus {
-        border-color: $dark-gray;
+        &:focus {
+          border-color: $dark-gray;
+        }
+      }
+
+      .search-icon {
+        font-size: $search-icon-size;
+        width: $search-icon-size;
+        height: $search-icon-size;
+        line-height: 100%;
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        margin-top: -$search-icon-size / 2;
+        vertical-align: middle;
+        color: $gray;
       }
     }
-
-    .search-icon {
-      font-size: $search-icon-size;
-      width: $search-icon-size;
-      height: $search-icon-size;
-      line-height: 100%;
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      margin-top: -$search-icon-size / 2;
-      vertical-align: middle;
-      color: $gray;
-    }
   }
-}
 
 
-.brand {
-  float: left;
-  height: 100%;
+  .brand {
+    float: left;
+    height: 100%;
   }
 }
 
@@ -215,15 +216,15 @@ $search-icon-size: 24px;
 
  #refinement-tags-wrapper {
 
-    position: fixed;
-    top: $navbar-height;
-    width: 100%;
-    height: $refinement-tags-height;
-    overflow-x: scroll;
-    background-color: $light-gray;
+  position: fixed;
+  top: $navbar-height;
+  width: 100%;
+  height: $refinement-tags-height;
+  overflow-x: scroll;
+  background-color: $light-gray;
 
-   #refinement-tags {
-    
+  #refinement-tags {
+
     position: absolute;
     padding: 5px 10px;
     height: 100%;
@@ -414,8 +415,8 @@ $search-icon-size: 24px;
 
  .facet {
 
+  color: $light-gray;
   h3 {
-    color: $light-gray;
     //font-weight: lighter;
     font-size: 20px;
     border-bottom: 1px solid $darker-gray;
@@ -446,8 +447,10 @@ $search-icon-size: 24px;
         &:before {
           position: absolute;
           left: -$facet-disjunctive-checkbox-width - 5px;
-          content: '\25A2';
+          content: '\2610';
           color: $light-gray;
+          font-size: 20px;
+          line-height: 18px;
           //font-size: 20px;
           //text-align: center;
           //line-height: $facet-disjunctive-checkbox-height;
@@ -455,12 +458,44 @@ $search-icon-size: 24px;
 
         &.selected {
           &:before {
-            content: '\25A3';
+            content: '\2611';
             color: $blue;
             //background-color: $blue;
           }
         }
       }
+
+    } // a
+
+  } // ul
+
+  .slider-wrapper {
+    padding: 0 5px;
+    .slider {
+      width: 100%;
+
+      .slider-handle.custom {
+        //position: relative;
+        //padding: 3px;
+        &:before {
+          position: absolute;
+          height: 100%;
+          //width: 100%;
+          content: '';
+          text-align: center;
+          background-color: $blue;
+          //border: 1px solid red;
+          width: 100%;
+          border-radius: 2px;
+          @include box-shadow(0px, 0px, 3px, $dark-gray);
+        }
+      }
     }
   }
+
+  .slider-bounds {
+    overflow: hidden;
+    padding: 0 0;
+  }
+
 }

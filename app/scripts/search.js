@@ -142,21 +142,25 @@ function renderFacets(content, state) {
 		}
 
 		else if (facet.type == 'slider') {
-			var minValue = state.getNumericRefinement(facet.name, '>=') || result.stats.min;
-			var maxValue = state.getNumericRefinement(facet.name, '<=') || result.stats.max;
+			var min = Math.floor(result.stats.min)
+			var max = Math.floor(result.stats.max)
+			var minValue = state.getNumericRefinement(facet.name, '>=') || min;
+			var maxValue = state.getNumericRefinement(facet.name, '<=') || max;
+
+			//console.log(">>>>>", Math.floor(minValue), Math.floor(maxValue));
 			var sliderData = {
 				facet: facet.name,
 				title: facet.displayName,
 				value: '[' + minValue + ', ' + maxValue + ']',
-				min: result.stats.min,
-				max: result.stats.max,
+				min: min,
+				max: max,
 				step: 5
 			};
 
 			facetsHtml += sliderTemplate.render(sliderData);
 
 			// Tag value
-			var tag = formatNumericRefinementTag(state, facet.name);
+			var tag = formatNumericRefinementTag(state, facet.name, min, max);
 			if (tag !== null) {
 				refinementTags.push(tag);
 			}
@@ -194,11 +198,11 @@ function renderFacets(content, state) {
 	$refinementTags.html(refinementTagsHtml);
 
 
-	function formatNumericRefinementTag(state, facetName) {
+	function formatNumericRefinementTag(state, facetName, lowerValue, upperValue) {
 		var min = state.getNumericRefinement(facetName, '>=')
 		var max = state.getNumericRefinement(facetName, '<=')
-		var minTagValue = min || '';
-		var maxTagValue = max || '';
+		var minTagValue = (min > lowerValue) ? (min || '') : '';
+		var maxTagValue = (max < upperValue) ? (max || '') : '';
 		var title = '';
 		if (minTagValue.length > 0) {
 			title += 'min: €' + minTagValue;
@@ -224,25 +228,35 @@ function bindFacets(state) {
 	Config.Algolia.Facets.forEach(function(facet, idx) {
 		if (facet.type == 'slider') {
 			var $slider = $facets.find('#slider-' + facet.name);
-			$slider.slider({})
-				.on('slideStop', function(e) {
+			$slider.slider({
+				tooltip_split: true,
+				handle: 'custom',
+				formatter: function(v) { return '$'+v }
+			}).on('slideStop', function(e) {
 					var sliderData = $(this).data();
 					var inputValues = $(this).val().split(',')
 					var userValues = {
 						min: Number(inputValues[0]),
 						max: Number(inputValues[1])
 					};
-					var lowerBound = state.getNumericRefinement(facet.name, '>=');
-					lowerBound = lowerBound && lowerBound[0] || sliderData.sliderMin;
-					if (userValues.min !== lowerBound) {
+					var lowerRefinement = state.getNumericRefinement(facet.name, '>=');
+					lowerRefinement = lowerRefinement && lowerRefinement[0] || sliderData.sliderMin;
+					if (userValues.min !== lowerRefinement) {
 						algoliaHelper.removeNumericRefinement(facet.name, '>=');
-						algoliaHelper.addNumericRefinement(facet.name, '>=', userValues.min).search();
+						if (userValues.min != sliderData.sliderMin) {
+							algoliaHelper.addNumericRefinement(facet.name, '>=', userValues.min);
+						}
+						algoliaHelper.search()
+						
 					}
-					var upperBound = state.getNumericRefinement(facet.name, '<=');
-					upperBound = upperBound && upperBound[0] || sliderData.sliderMax;
-					if (userValues.max !== upperBound) {
+					var upperRefinement = state.getNumericRefinement(facet.name, '<=');
+					upperRefinement = upperRefinement && upperRefinement[0] || sliderData.sliderMax;
+					if (userValues.max !== upperRefinement) {
 						algoliaHelper.removeNumericRefinement(facet.name, '<=');
-						algoliaHelper.addNumericRefinement(facet.name, '<=', userValues.max).search();
+						if (userValues.max != sliderData.sliderMax) {
+							algoliaHelper.addNumericRefinement(facet.name, '<=', userValues.max);	
+						}
+						algoliaHelper.search();
 					}
 				});
 		}

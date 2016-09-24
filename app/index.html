@@ -12,6 +12,7 @@
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
     <link rel="stylesheet" href="/bower_components/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+    <link rel="stylesheet" href="/bower_components/jquery-bar-rating/dist/themes/bootstrap-stars.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -172,15 +173,20 @@
     <script type="text/template" id="slider-template">
       <div class="facet">
         <h3>{{ title }}</h3>
-        <b> {{ min }} </b> 
-        <input 
-        id="slider-{{ facet }}" 
-        type="text" 
-        data-slider-min="{{ min }}" 
-        data-slider-max="{{ max }}" 
-        data-slider-step="{{ step }}" 
-        data-slider-value="{{ value }}"/> 
-        <b>{{ max }}</b>
+        <div class="slider-wrapper">
+          <input 
+          id="slider-{{ facet }}" 
+          type="text" 
+          data-slider-min="{{ min }}" 
+          data-slider-max="{{ max }}" 
+          data-slider-step="{{ step }}" 
+          data-slider-value="{{ value }}" /> 
+        </div>
+
+        <div class="slider-bounds">
+          <span class="pull-left">${{ min }}</span>
+          <span class="pull-right">${{ max }}</span>
+        </div>
       </div>
     </script>
 
