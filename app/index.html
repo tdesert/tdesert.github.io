@@ -54,13 +54,8 @@
         </div>
 
         <main>
-          <div class="col-md-12" id="hits-header">
-            <div class="row ">
-              <div class="col-md-9">
-                Number of results
-              </div>
-              <div class="col-md-3">
-                Sort by: 
+          <div id="hits-header">
+              <div class="sort pull-left">
                 <select dir="rtl" id="sort-by-select">
                   <option value="" selected>Most relevant</option>
                   <option value="_price_asc">Lowest Price</option>
@@ -69,7 +64,11 @@
                 </select>
                 <span class="caret"></span>
               </div>
-            </div>
+              <div class="stats pull-right">
+                Number of results
+              </div>
+              
+          </div>
 
             <div class="row" id="hits">
               <!-- <div class="col-md-12"><div class="well"><p>Shrink the browser width to make the sidebar collapse off canvase.</p></div></div> -->
