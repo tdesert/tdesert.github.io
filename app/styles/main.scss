@@ -5,7 +5,9 @@ $refinement-tags-height: 45px;
 
 $light-gray: #F3F3F3;
 $gray: #D5D5D5;
-$dark-gray: #898989;
+//$dark-gray: #898989;
+$dark-gray: #566062;
+$darker-gray: #4D5557;
 $blue: #51B6D2;
 
 // bower:scss
@@ -65,7 +67,7 @@ main {
   width: inherit;
   min-width: $sidebar-width;
   max-width: $sidebar-width;
-  background-color:#f5f5f5;
+  background-color: $dark-gray;
   float: left;
   height:100%;
   position:relative;
@@ -411,31 +413,53 @@ $search-icon-size: 24px;
  $facet-disjunctive-checkbox-height: 16px;
 
  .facet {
+
+  h3 {
+    color: $light-gray;
+    //font-weight: lighter;
+    font-size: 20px;
+    border-bottom: 1px solid $darker-gray;
+    padding-bottom: 5px;
+  }
+
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
 
     a {
-
-      color: black;
+      color: $light-gray;
+      //font-weight: lighter;
 
       &.selected {
-        color: red; 
+        color: $blue; 
+
+        &:hover {
+          text-decoration: line-through;
+        }
       }
 
       &.disjunctive {
         position: relative;
-        margin-left: $facet-disjunctive-checkbox-width;
-      }
+        margin-left: $facet-disjunctive-checkbox-width + 5px;
 
-      &:before {
-        position: absolute;
-        left: -$facet-disjunctive-checkbox-width;
-        width: $facet-disjunctive-checkbox-width;
-        height: $facet-disjunctive-checkbox-height;
-        border: 1px solid red;
-        content: '';
+        &:before {
+          position: absolute;
+          left: -$facet-disjunctive-checkbox-width - 5px;
+          content: '\25A2';
+          color: $light-gray;
+          //font-size: 20px;
+          //text-align: center;
+          //line-height: $facet-disjunctive-checkbox-height;
+        }
+
+        &.selected {
+          &:before {
+            content: '\25A3';
+            color: $blue;
+            //background-color: $blue;
+          }
+        }
       }
     }
   }
