@@ -430,6 +430,20 @@ main {
 }
 
 /*
+ * No results
+ * --------------------------------------------------
+ */
+ #no-results {
+  padding: 0px 18px;
+  text-align: center;
+  h3 {
+    color: $dark-gray;
+    font-weight: normal;
+    font-size: 18px;
+  }
+ }
+
+/*
  * Facets
  * --------------------------------------------------
  */

@@ -28,6 +28,7 @@ var $refinementTags = $('#refinement-tags');
 // Templates
 var statsTemplate = Hogan.compile($('#stats-template').text());
 var hitsTemplate = Hogan.compile($('#hits-template').text());
+var noResultsTemplate = Hogan.compile($('#no-results-template').text());
 var facetTemplate = Hogan.compile($('#facet-template').text());
 var sliderTemplate = Hogan.compile($('#slider-template').text());
 var ratingTemplate = Hogan.compile($('#rating-template').text());
@@ -99,6 +100,12 @@ $('.brand').on('click', function(e) {
 	algoliaHelper.clearRefinements().search();
 });
 
+$(document).on('click', '.clear-query-string', function(e) {
+	e.preventDefault();
+	$searchInput.val('').focus();
+    algoliaHelper.setQuery('').clearRefinements().search();
+});
+
 
 ///
 /// Rendering functions
@@ -112,15 +119,20 @@ function renderStats(content) {
 }
 
 function renderHits(content, append) {
-	content['hasNextPage'] = content.page < content.nbPages;
 
+	// Handle no results 
+	if (content.nbHits == 0) {
+		$hits.html(noResultsTemplate.render({
+			queryString: content.query
+		}))
+		return
+	}
+
+	content['hasNextPage'] = content.page < content.nbPages;
 	var maxRatingValue = (content.getFacetByName("rating") && content.getFacetByName("rating").stats.max) || 0
 	content.hits.forEach(function(hit) {
 		ratingStars = [];
-		//var activeStars
-
 		for (var i = 0; i < maxRatingValue; i++) {
-			//hit.rating
 			ratingStars.push({enabled: i < hit.rating});
 		}
 		hit['ratingStars'] = ratingStars;
