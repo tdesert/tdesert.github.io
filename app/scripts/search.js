@@ -129,7 +129,7 @@ function renderHits(content, append) {
 	}
 
 	content['hasNextPage'] = content.page < content.nbPages;
-	var maxRatingValue = (content.getFacetByName("rating") && content.getFacetByName("rating").stats.max) || 0
+	var maxRatingValue = (content.getFacetByName('rating') && content.getFacetByName('rating').stats.max) || 0
 	content.hits.forEach(function(hit) {
 		ratingStars = [];
 		for (var i = 0; i < maxRatingValue; i++) {
