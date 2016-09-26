@@ -121,7 +121,10 @@
     <!-- Facets -->
     <script type="text/template" id="facet-template">
       <div class="facet">
-        <h3>{{ title }} {{#hasRefinements}}Clear{{/hasRefinements}}</h3>
+        <h3>
+          {{ title }} 
+          {{#hasRefinements}}<span data-facet="{{ facet }}" class="facet-clear pull-right glyphicon glyphicon-remove"></span>{{/hasRefinements}}
+        </h3>
         <ul>
           {{#values}}
           <li>
@@ -138,7 +141,10 @@
     <!-- Slider Facets -->
     <script type="text/template" id="slider-template">
       <div class="facet">
-        <h3>{{ title }}</h3>
+        <h3>
+          {{ title }}
+          {{#hasRefinements}}<span data-facet="{{ facet }}" class="facet-clear pull-right glyphicon glyphicon-remove"></span>{{/hasRefinements}}
+        </h3>
         <div class="slider-wrapper">
           <input 
           id="slider-{{ facet }}" 
@@ -159,7 +165,10 @@
     <!-- Rating Facets -->
     <script type="text/template" id="rating-template">
       <div class="facet">
-        <h3>{{ title }}</h3>
+        <h3>
+          {{ title }}
+          {{#hasRefinements}}<span data-facet="{{ facet }}" class="facet-clear pull-right glyphicon glyphicon-remove"></span>{{/hasRefinements}}
+        </h3>
         <select id="rating-{{ facet }}" data-facet="{{ facet }}">
           <option value></option>
           {{#values}}

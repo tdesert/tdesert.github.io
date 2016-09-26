@@ -439,6 +439,17 @@ main {
     font-size: 20px;
     border-bottom: 1px solid $light-gray;
     padding-bottom: 5px;
+
+    .facet-clear {
+      font-size: 12px;
+      line-height: 25px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        color: $blue;
+      }
+    }
   }
 
   ul {

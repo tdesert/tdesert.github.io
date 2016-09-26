@@ -74,6 +74,11 @@ $(document).on('click', '.facet-toggle', function(e) {
 	algoliaHelper.toggleRefine($(this).data('facet'), $(this).data('value')).search();
 });
 
+$(document).on('click', '.facet-clear', function(e) {
+	e.preventDefault()
+	algoliaHelper.clearRefinements($(this).data('facet')).search();
+});
+
 $(document).on('click', '.refinement-tag', function(e) {
 	e.preventDefault()
 	if ($(this).data('isNumeric') === true) {
@@ -109,7 +114,7 @@ function renderStats(content) {
 function renderHits(content, append) {
 	content['hasNextPage'] = content.page < content.nbPages;
 
-	var maxRatingValue = content.getFacetByName("rating").stats.max || 0
+	var maxRatingValue = (content.getFacetByName("rating") && content.getFacetByName("rating").stats.max) || 0
 	content.hits.forEach(function(hit) {
 		ratingStars = [];
 		//var activeStars
@@ -147,7 +152,7 @@ function renderFacets(content, state) {
 				title: facet.displayName,
 				values: content.getFacetValues(facet.name, {sortBy: ['count:desc']}),
 				isDisjunctive: facet.type == 'disjunctive',
-				hasRefinements: refinedValues.count > 0
+				hasRefinements: refinedValues.length > 0 
 			};
 			facetsHtml += facetTemplate.render(facetData);
 
@@ -165,8 +170,11 @@ function renderFacets(content, state) {
 		else if (facet.type == 'slider') {
 			var min = Math.floor(result.stats.min)
 			var max = Math.floor(result.stats.max)
-			var minValue = state.getNumericRefinement(facet.name, '>=') || min;
-			var maxValue = state.getNumericRefinement(facet.name, '<=') || max;
+			var lowerRefinement = state.getNumericRefinement(facet.name, '>=')
+			var upperRefinement = state.getNumericRefinement(facet.name, '<=')
+			var minValue = lowerRefinement || min;
+			var maxValue = upperRefinement || max;
+			var refinedValues = (lowerRefinement || []) + (upperRefinement || [])
 
 			var sliderData = {
 				facet: facet.name,
@@ -174,7 +182,8 @@ function renderFacets(content, state) {
 				value: '[' + minValue + ', ' + maxValue + ']',
 				min: min,
 				max: max,
-				step: 5
+				step: 5,
+				hasRefinements: refinedValues.length > 0
 			};
 
 			facetsHtml += sliderTemplate.render(sliderData);
@@ -203,19 +212,18 @@ function renderFacets(content, state) {
 			var ratingData = {
 				title: facet.displayName,
 				facet: facet.name,
-				values: values
+				values: values,
+				hasRefinements: currentRefinement.length > 0
 			};
 			facetsHtml += ratingTemplate.render(ratingData);
 
 			// Tag value
 			var facetValue = state.getNumericRefinement(facet.name, '>=') || null
-			console.log("FACET VALUE", facetValue)
 			if (facetValue !== null) {
 				var stars = ''
 				for (var i = 0; i < facetValue; i++) {
 					stars += '<span class="glyphicon glyphicon-star"></span>';
 				}
-				console.log(stars)
 				refinementTags.push({
 					value: facetValue,
 					title: 'Min rating: ' + stars,
@@ -265,6 +273,7 @@ function bindFacets(state) {
 	Config.Algolia.Facets.forEach(function(facet, idx) {
 		if (facet.type == 'slider') {
 			var $slider = $facets.find('#slider-' + facet.name);
+			if (!$slider.length) { return }
 			$slider.slider({
 				tooltip_split: true,
 				handle: 'custom',
