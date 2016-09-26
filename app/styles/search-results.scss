@@ -1,0 +1,133 @@
+@import "_constants.scss";
+@import "_mixins.scss";
+
+/*
+ * Hits
+ * --------------------------------------------------
+ */
+
+ $image-width: 100px;
+
+ #hits-header {
+  padding-top: 30px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid $gray;
+  color: $dark-gray;
+  overflow: hidden;
+  font-weight: lighter;
+  font-size: 18px;
+
+  .sort {
+    select {
+      cursor: pointer;
+      border: none;
+      outline: none;
+      background: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+  }
+}
+
+
+#hits {
+
+  padding-bottom: 50px;
+  padding-top: 30px;
+
+  .tile {
+
+    padding: 10px;
+
+    .hit {
+      padding: 20px 0 0 0;
+      @include box-shadow(0px, 0px, 3px, $gray)
+      position: relative;
+      height: 400px;
+      width: 100%;
+      background-color: white;
+      color: $dark-gray;
+      border-radius: 3px;
+
+      em {
+        font-style: normal;
+        font-weight: normal;
+        color: $blue;
+      }
+
+      .image {
+        height: 100px;
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: contain;
+      }
+
+      .description {
+        h3 {
+          font-size: 18px;
+          padding: 0;
+          line-height: 24px;
+          font-weight: normal;
+        }
+
+        line-height: 24px;
+        position: absolute;
+
+        padding: 10px;
+        top: 110px;
+        bottom: 20px;
+        margin-bottom: 20px;
+        font-weight: lighter;
+
+        overflow: hidden;
+      }
+
+      .footer {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        width: 100%;
+        padding: 0px 10px;
+
+        .price {
+        }
+
+        .rating {
+          color: $gray;
+          .enabled {
+            color: $blue;
+          }
+        }
+      }
+    }
+    
+
+  }
+
+  #hits-next-page {
+    display: block;
+    clear: both;
+    text-align: center;
+  }
+
+}
+
+
+/*
+ * No results
+ * --------------------------------------------------
+ */
+
+ #no-results {
+  padding: 0px 18px;
+  text-align: center;
+  h3 {
+    color: $dark-gray;
+    font-weight: normal;
+    font-size: 18px;
+  }
+ }

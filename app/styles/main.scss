@@ -1,55 +1,11 @@
 $icon-font-path: '../fonts/';
-$sidebar-width: 270px;
-$navbar-height: 90px;
-$refinement-tags-height: 45px;
-$hits-header-height: 100px;
-
-$light-gray: #F3F3F3;
-$gray: #D5D5D5;
-$dark-gray: #6A6A6A;
-$darker-gray: #4D5557;
-$blue: #51B6D2;
-$sidebar-background-color: #566062;
 
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-// Mixins
-
-@mixin box-shadow($dx, $dy, $blur, $color) {
-  -moz-box-shadow: $dx $dy $blur $color;
-  -webkit-box-shadow: $dx $dy $blur $color;
-  -o-box-shadow: $dx $dy $blur $color;
-  box-shadow: $dx $dy $blur $color;
-}
-
-@mixin placeholder-color($color) {
-  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    $color;
-    text-align: center;
-    font-weight: lighter;
-  }
-  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    $color;
-   opacity:  1;
-   text-align: center;
-   font-weight: lighter;
- }
-  ::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    $color;
-   opacity:  1;
-   text-align: center;
-   font-weight: lighter;
- }
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    $color;
-   text-align: center;
-   font-weight: lighter;
- }
-}
-
-//
+@import "_constants.scss";
+@import "_mixins.scss";
 
 /*
  * Global 
@@ -144,17 +100,11 @@ main {
   .header {
 
     height: 100%;
-    //padding: 25px 10px;
 
     .search-input-wrapper {
       position: relative;
-      //max-width: 430px;
-      //padding-left: 200px;
-      //border: 1px solid red;
       width: 100%;
       height: 100%;
-      //margin-left: auto;
-      //margin-right: auto;
       padding: 25px 40px;
       padding-left: 200px;
 
@@ -197,7 +147,6 @@ main {
     width: 180px;
     float: left;
     padding: 10px 0;
-    //border: 1px solid red;
     .brand {
       cursor: pointer;
       height: 100%;
@@ -206,8 +155,6 @@ main {
       background-size: contain;
       background-position: center center;
       background-repeat: no-repeat;
-      //border: 1px solid blue;
-      //background-color: $gray;
     }  
   }
   
@@ -228,7 +175,6 @@ main {
       color: $gray;
       border: none;
       border-radius: none;
-      //border-color: $light-gray;
       border-right: 1px solid $gray;
       border-bottom: 1px solid $gray;
       font-size: 24px;
@@ -254,6 +200,7 @@ main {
     }
   }
 }
+
 
 /*
  * Refinement tags
@@ -281,6 +228,7 @@ main {
     .refinement-tag {
       vertical-align: middle;
       display: inline-block;
+      margin-right: 3px;
       height: 100%;
       color: $blue;
       border: none;
@@ -300,265 +248,4 @@ main {
       }
     }
   }
-}
-
-/*
- * Hits
- * --------------------------------------------------
- */
-
- $image-width: 100px;
-
- #hits-header {
-  //height: $hits-header-height;
-  //line-height: $hits-header-height;
-  padding-top: 30px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid $gray;
-  color: $dark-gray;
-  overflow: hidden;
-  font-weight: lighter;
-  font-size: 18px;
-
-  .sort {
-    select {
-      cursor: pointer;
-      border: none;
-      outline: none;
-      background: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      //text-transform: uppercase;
-    }
-  }
-}
-
-
-#hits {
-
-  padding-bottom: 50px;
-  padding-top: 30px;
-  //margin: -5px;
-
-  // .tile:not(:first-child),.col:not(:last-child) {
-  //   padding-right:7px;
-  //   padding-left:7px;
-  // }
-
-  .tile {
-
-    padding: 10px;
-
-    .hit {
-      padding: 20px 0 0 0;
-      //border: 1px solid red;
-      @include box-shadow(0px, 0px, 3px, $gray)
-      position: relative;
-      height: 400px;
-      width: 100%;
-      background-color: white;
-      color: $dark-gray;
-      border-radius: 3px;
-
-      em {
-        font-style: normal;
-        font-weight: normal;
-        //background-color: $light-gray;
-        color: $blue;
-      }
-
-      .image {
-        height: 100px;
-        position: absolute;
-        top: 20px;
-        left: 0;
-        width: 100%;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: contain;
-        //border: 1px solid green;
-      }
-
-      .description {
-        h3 {
-          font-size: 18px;
-          padding: 0;
-          line-height: 24px;
-          font-weight: normal;
-        }
-
-        line-height: 24px;
-        position: absolute;
-
-        padding: 10px;
-        top: 110px;
-        bottom: 20px;
-        margin-bottom: 20px;
-        font-weight: lighter;
-
-        overflow: hidden;
-      }
-
-      .footer {
-        position: absolute;
-        bottom: 5px;
-        left: 0;
-        width: 100%;
-        padding: 0px 10px;
-
-        .price {
-        }
-
-        .rating {
-          color: $gray;
-          .enabled {
-            color: $blue;
-          }
-        }
-      }
-    }
-    
-
-  }
-
-  #hits-next-page {
-    display: block;
-    clear: both;
-    text-align: center;
-  }
-
-}
-
-/*
- * No results
- * --------------------------------------------------
- */
- #no-results {
-  padding: 0px 18px;
-  text-align: center;
-  h3 {
-    color: $dark-gray;
-    font-weight: normal;
-    font-size: 18px;
-  }
- }
-
-/*
- * Facets
- * --------------------------------------------------
- */
-
- $facet-disjunctive-checkbox-width: 16px;
- $facet-disjunctive-checkbox-height: 16px;
-
- .facet {
-
-  letter-spacing: 1px;
-  color: $light-gray;
-  font-weight: lighter;
-  line-height: 24px;
-  h3 {
-    font-weight: lighter;
-    font-size: 20px;
-    border-bottom: 1px solid $light-gray;
-    padding-bottom: 5px;
-
-    .facet-clear {
-      font-size: 12px;
-      line-height: 25px;
-      font-weight: bold;
-      cursor: pointer;
-
-      &:hover {
-        color: $blue;
-      }
-    }
-  }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    li {
-      
-      a {
-        color: $light-gray;
-
-
-      &.selected {
-        color: $blue; 
-        font-weight: normal;
-
-        &:hover {
-          text-decoration: line-through;
-        }
-      }
-
-      &.disjunctive {
-        position: relative;
-        margin-left: $facet-disjunctive-checkbox-width + 5px;
-
-        &:before {
-          position: absolute;
-          left: -$facet-disjunctive-checkbox-width - 5px;
-          content: '\2610';
-          color: $light-gray;
-          font-size: 20px;
-          line-height: 20px;
-          height: 20px;
-          // font-weight: lighter;
-          //font-size: 20px;
-          //text-align: center;
-          //line-height: $facet-disjunctive-checkbox-height;
-        }
-
-        &.selected {
-          &:before {
-            content: '\2611';
-            color: $blue;
-            //background-color: $blue;
-          }
-        }
-      }
-
-    } // a
-
-    .count {
-      color: $gray;
-    }
-
-  } // li
-
-  } // ul
-
-  .slider-wrapper {
-    padding: 0 5px;
-    .slider {
-      width: 100%;
-
-      .slider-handle.custom {
-        //position: relative;
-        //padding: 3px;
-        &:before {
-          position: absolute;
-          height: 100%;
-          //width: 100%;
-          content: '';
-          text-align: center;
-          background-color: $blue;
-          //border: 1px solid red;
-          width: 100%;
-          border-radius: 2px;
-          @include box-shadow(0px, 0px, 3px, $dark-gray);
-        }
-      }
-    }
-  }
-
-  .slider-bounds {
-    overflow: hidden;
-    padding: 0 0;
-  }
-
 }

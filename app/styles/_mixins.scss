@@ -1,0 +1,35 @@
+/*
+ * Mixins 
+ * --------------------------------------------------
+ */
+@mixin box-shadow($dx, $dy, $blur, $color) {
+  -moz-box-shadow: $dx $dy $blur $color;
+  -webkit-box-shadow: $dx $dy $blur $color;
+  -o-box-shadow: $dx $dy $blur $color;
+  box-shadow: $dx $dy $blur $color;
+}
+
+@mixin placeholder-color($color) {
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    $color;
+    text-align: center;
+    font-weight: lighter;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    $color;
+   opacity:  1;
+   text-align: center;
+   font-weight: lighter;
+ }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    $color;
+   opacity:  1;
+   text-align: center;
+   font-weight: lighter;
+ }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    $color;
+   text-align: center;
+   font-weight: lighter;
+ }
+}

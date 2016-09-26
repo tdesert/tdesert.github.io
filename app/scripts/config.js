@@ -12,10 +12,6 @@ var Config = {
 			{name: 'rating', displayName: 'Customer Rating', type: 'rating'}
 		],
 		HitsPerPage: 20
-	},
-
-	Display: {
-
 	}
 
 }
