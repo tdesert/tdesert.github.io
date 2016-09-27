@@ -1,0 +1,83 @@
+<!doctype html><html lang=""><head><meta charset="utf-8"><meta name="description" content=""><meta name="viewport" content="width=device-width,initial-scale=1"><title>tdesert github io</title><link rel="apple-touch-icon" href="apple-touch-icon.png"><!-- Place favicon.ico in the root directory --><link rel="stylesheet" href="styles/vendor.css"><link rel="stylesheet" href="styles/main.css"></head><body><!--[if lt IE 10]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+      <![endif]--><header class="navbar navbar-inverse navbar-fixed-top"><button type="button" id="menu-button" class="visible-xs btn btn-primary btn-xs" data-toggle="offcanvas"><span class="glyphicon glyphicon-list"></span></button><div class="header"><div class="brand-wrapper"><div class="brand"></div></div><div class="search-input-wrapper"><div class="search-icon glyphicon glyphicon-search"></div><input id="search-input" type="text" autocomplete="off" spellcheck="false" autocorrect="off" placeholder="Search by name, brand, description..."></div></div></header><!--/header --><div id="refinement-tags-wrapper"><div id="refinement-tags"></div></div><div class="row-offcanvas row-offcanvas-left"><div id="sidebar" class="sidebar-offcanvas"><div class="col-md-12" id="facets"></div></div><main><div id="hits-header"><div class="sort pull-left"><select id="sort-by-select"><option value="" selected="selected">Most relevant</option><option value="_price_asc">Lowest Price</option><option value="_price_desc">Highest Price</option><option value="_rating_desc">Customer Rating</option></select><span class="caret"></span></div><div class="stats pull-right" id="stats"></div></div><div class="row" id="hits"></div></main></div><!--/row-offcanvas --><!-- Templates --><!-- Hits header template --><script type="text/template" id="stats-template">{{nbHits}} result{{#nbHits_plural}}s{{/nbHits_plural}}</script><!-- Hits template --><script type="text/template" id="hits-template">{{#hits}}
+        <div class="tile col-lg-4 col-sm-6 col-xs-12">
+
+          <div class="hit">
+           <div class="image" style="background-image: url({{ image }})"></div>
+
+           <div class="description">
+            <h3>{{{ _highlightResult.name.value  }}}</h3>
+            {{{ _highlightResult.description.value }}}
+          </div>
+
+          <div class="footer">
+            <div class="price pull-left">${{ price }}</div>
+            <div class="rating pull-right">
+              {{#ratingStars}}
+              <span class="glyphicon glyphicon-star {{#enabled}} enabled {{/enabled}}"></span>
+              {{/ratingStars}}
+            </div>
+          </div>
+
+        </div>
+      </div>
+      {{/hits}}
+
+      {{#hasNextPage}}
+      <a href="" id="hits-next-page">More products</a>
+      {{/hasNextPage}}</script><!-- Facets templates --><script type="text/template" id="facet-template"><div class="facet">
+        <h3>
+          {{ title }} 
+          {{#hasRefinements}}<span data-facet="{{ facet }}" class="facet-clear pull-right glyphicon glyphicon-remove"></span>{{/hasRefinements}}
+        </h3>
+        <ul>
+          {{#values}}
+          <li>
+            <a href="" class="facet-toggle {{#isDisjunctive}}disjunctive{{/isDisjunctive}} {{#isRefined}}selected{{/isRefined}}" data-facet="{{ facet }}" data-value="{{ name }}">
+              {{ name }} 
+            </a>
+            <span class="count pull-right">{{ count }}</span>
+          </li>
+          {{/values}}
+        </ul>
+      </div></script><!-- Slider Facets --><script type="text/template" id="slider-template"><div class="facet">
+        <h3>
+          {{ title }}
+          {{#hasRefinements}}<span data-facet="{{ facet }}" class="facet-clear pull-right glyphicon glyphicon-remove"></span>{{/hasRefinements}}
+        </h3>
+        <div class="slider-wrapper">
+          <input 
+          id="slider-{{ facet }}" 
+          type="text" 
+          data-slider-min="{{ min }}" 
+          data-slider-max="{{ max }}" 
+          data-slider-step="{{ step }}" 
+          data-slider-value="{{ value }}" /> 
+        </div>
+
+        <div class="slider-bounds">
+          <span class="pull-left">${{ min }}</span>
+          <span class="pull-right">${{ max }}</span>
+        </div>
+      </div></script><!-- Rating Facets --><script type="text/template" id="rating-template"><div class="facet">
+        <h3>
+          {{ title }}
+          {{#hasRefinements}}<span data-facet="{{ facet }}" class="facet-clear pull-right glyphicon glyphicon-remove"></span>{{/hasRefinements}}
+        </h3>
+        <select id="rating-{{ facet }}" data-facet="{{ facet }}">
+          <option value></option>
+          {{#values}}
+          <option value="{{ value }}" {{#isRefined}}selected{{/isRefined}}>{{ value }}</option>
+          {{/values}}
+        </select>
+      </div></script><!-- Refinement tag template --><script type="text/template" id="refinement-tag-template"><button type="button"
+      class="btn btn-default refinement-tag"
+      data-facet="{{ facet }}" 
+      data-value="{{ value }}"
+      data-is-numeric="{{ isNumeric }}">
+      <span class="glyphicon glyphicon-remove"></span> {{{ title }}}
+    </button></script><!-- No Results template --><script type="text/template" id="no-results-template"><div id="no-results">
+      <h3>Sorry! We could not find any products for your search "{{ queryString }}"</h3>
+      <a href="" class="clear-query-string">Let's try something else!</a>
+    </div></script><script src="scripts/vendor.js"></script><script src="scripts/plugins.js"></script><script src="scripts/main.js"></script><script src="http://cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.common.js"></script></body></html>
